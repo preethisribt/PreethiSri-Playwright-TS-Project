@@ -1,18 +1,16 @@
-import { test, expect } from '@playwright/test';
+import {test, expect} from '@playwright/test';
+import exp = require("node:constants");
 
-test('has title', async ({ page }) => {
-  await page.goto('https://playwright.dev/');
+test('example1', async ({page}) => {
+    await page.goto('https://testautomationpractice.blogspot.com/');
 
-  // Expect a title "to contain" a substring.
-  await expect(page).toHaveTitle(/Playwright/);
+    await page.getByRole('textbox', {name: 'Enter Name'}).fill("fname");
+    await page.getByPlaceholder('Enter EMail').fill("test@gmail.com");
+    await page.getByPlaceholder('Enter Phone').fill("7894561230");
+    await page.getByLabel('Address:').fill("sample text area");
+    await page.getByLabel('Male').first().check();
+    await page.getByRole('checkbox',{name:'sunday'}).check();
+    await page.locator("#country").selectOption({index:5});
+    await page.waitForTimeout(3000);
 });
 
-test('get started link', async ({ page }) => {
-  await page.goto('https://playwright.dev/');
-
-  // Click the get started link.
-  await page.getByRole('link', { name: 'Get started' }).click();
-
-  // Expects page to have a heading with the name of Installation.
-  await expect(page.getByRole('heading', { name: 'Installation' })).toBeVisible();
-});
