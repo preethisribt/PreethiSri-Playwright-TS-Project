@@ -1,5 +1,4 @@
-import {test, expect} from '@playwright/test';
-import exp = require("node:constants");
+import {test} from '@playwright/test';
 
 test('example1', async ({page}) => {
     await page.goto('https://testautomationpractice.blogspot.com/');
@@ -13,4 +12,7 @@ test('example1', async ({page}) => {
     await page.locator("#country").selectOption({index:5});
     await page.waitForTimeout(3000);
 });
+
+
+
 
