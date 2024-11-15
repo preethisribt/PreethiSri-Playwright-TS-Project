@@ -1,5 +1,5 @@
 import { expect, Page, TestInfo } from "@playwright/test";
-import { EnvData } from "../../test-config/EnvData";
+import { EnvData } from "../test-data/EnvData";
 import { PlaywrightBlocker } from "@cliqz/adblocker-playwright";
 
 class LoginPage {
@@ -26,6 +26,7 @@ class LoginPage {
 
     await this.page.route("**/*.{png,jpg,jpeg}", (route) => route.abort());
     await this.page.route("**/get_product_picture/*", (route) => route.abort());
+    await expect(this.page).toHaveScreenshot("*/logo.png");
 
     await this.page.goto(EnvData.url);
   }
@@ -36,10 +37,7 @@ class LoginPage {
     await this.passwordTextBox.fill(EnvData.Password);
     await this.loginButton.click();
     await expect(this.page.getByRole("link", { name: "Logout" })).toBeVisible();
-    await this.page.screenshot({
-      path: "./test-screenshots/" + Date.now() + this.testInfo.title + ".png",
-    });
-    // await this.page.screenshot({ path: "/test-screenshots" + Date.now() + "_" + this.testInfo.title });
+    await this.page.screenshot({ path: "./test-screenshots/" + EnvData.dateTime +this.testInfo.title + ".png"});
   }
 
   async closeApp() {
