@@ -3,22 +3,12 @@ import { EnvData } from "../test-data/EnvData";
 import { PlaywrightBlocker } from "@cliqz/adblocker-playwright";
 
 class LoginPage {
-  constructor(
-    private page: Page,
-    private testInfo: TestInfo,
-  ) {}
+  constructor(private page: Page, private testInfo: TestInfo) { }
 
-  private readonly loginApplicationLink = this.page.getByRole("link", {
-    name: "Signup / Login",
-  });
-  private readonly emailIDTextBox = this.page
-    .locator("form")
-    .filter({ hasText: "login" })
-    .getByPlaceholder("Email Address");
+  private readonly loginApplicationLink = this.page.getByRole("link", { name: "Signup / Login" });
+  private readonly emailIDTextBox = this.page.locator("form").filter({ hasText: "login" }).getByPlaceholder("Email Address");
   private readonly passwordTextBox = this.page.getByPlaceholder("Password");
-  private readonly loginButton = this.page.getByRole("button", {
-    name: "Login",
-  });
+  private readonly loginButton = this.page.getByRole("button", {name: "Login"});
 
   async launchApplication() {
     const blocker = await PlaywrightBlocker.fromPrebuiltAdsAndTracking(fetch);
@@ -37,7 +27,7 @@ class LoginPage {
     await this.passwordTextBox.fill(EnvData.Password);
     await this.loginButton.click();
     await expect(this.page.getByRole("link", { name: "Logout" })).toBeVisible();
-    await this.page.screenshot({ path: "./test-screenshots/" + EnvData.dateTime +this.testInfo.title + ".png"});
+    await this.page.screenshot({ path: "./test-screenshots/" + EnvData.dateTime + this.testInfo.title + ".png" });
   }
 
   async closeApp() {

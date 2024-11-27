@@ -8,6 +8,14 @@ import OrderReviewPage from "../../Pages/orderReviewPage";
 
 
 test("Add Product and check product added to cart", async ({ page }, testInfo) => {
+  await page.route("**/*", (route, request) => {
+    //    console.log(request.resourceType());
+    if (request.resourceType() === "image")
+      route.abort()
+    else
+      route.continue();
+  });
+  
   const loginPage: LoginPage = new LoginPage(page, testInfo);
   await loginPage.launchApplication();
   await loginPage.login();
@@ -20,11 +28,11 @@ test("Add Product and check product added to cart", async ({ page }, testInfo) =
   await productDetailsPage.addProductToCart();
   await productDetailsPage.viewCart();
 
-  const cartPage: CartPage = new CartPage(page,testInfo);
+  const cartPage: CartPage = new CartPage(page, testInfo);
   await cartPage.validateCart();
   await cartPage.proceedToCheckout();
 
-  const orderReviewPage : OrderReviewPage = new OrderReviewPage(page,testInfo);
+  const orderReviewPage: OrderReviewPage = new OrderReviewPage(page, testInfo);
   await orderReviewPage.placeOrder();
 
   await loginPage.closeApp();

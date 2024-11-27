@@ -6,9 +6,7 @@
     "prepare": "husky",
     "lintAllFiles": "npx eslint .",
     "lint":"npx eslint . --ignore-pattern playwright-report/* --ignore-pattern **/.js",
-    "lint:fix": "npx eslint . --fix",
-    "pretty:write": "npx prettier . --write",
-    "prettyCheck": "npx prettier . --check"
+    "lint:fix": "npx eslint . --fix"
   },
   "keywords": [],
   "author": "",
@@ -23,11 +21,9 @@
     "@typescript-eslint/parser": "^8.15.0",
     "dotenv": "^16.4.5",
     "eslint": "^9.15.0",
-    "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-playwright": "^2.0.1",
     "globals": "^15.12.0",
     "husky": "^9.1.6",
-    "prettier": "3.3.3",
     "typescript": "^5.7.2",
     "typescript-eslint": "^8.15.0"
   },
