@@ -16,51 +16,49 @@ test("sample", async ({ page }) => {
 
   await page.route("png", (route) => route.abort());
 
-  await page.route(
-    "**/web/index.php/api/v2/dashboard/employees/subunit",
-    (route) => {
-      route.fulfill({
-        status: 200,
-        json: {
-          data: [
-            {
-              subunit: {
-                id: 3,
-                name: "Engineering",
-              },
-              count: 100,
+  await page.route("**/web/index.php/api/v2/dashboard/employees/subunit", (route) => {
+    route.fulfill({
+      status: 200, json:
+      {
+        data: [
+          {
+            subunit: {
+              id: 3,
+              name: "Engineering",
             },
-            {
-              subunit: {
-                id: 13,
-                name: "Human Resources",
-              },
-              count: 2,
-            },
-            {
-              subunit: {
-                id: 2,
-                name: "Administration",
-              },
-              count: 1,
-            },
-            {
-              subunit: {
-                id: 10,
-                name: "Client Services",
-              },
-              count: 1,
-            },
-          ],
-          meta: {
-            otherEmployeeCount: 0,
-            unassignedEmployeeCount: 342,
-            totalSubunitCount: 4,
+            count: 100,
           },
-          rels: [],
+          {
+            subunit: {
+              id: 13,
+              name: "Human Resources",
+            },
+            count: 2,
+          },
+          {
+            subunit: {
+              id: 2,
+              name: "Administration",
+            },
+            count: 1,
+          },
+          {
+            subunit: {
+              id: 10,
+              name: "Client Services",
+            },
+            count: 1,
+          },
+        ],
+        meta: {
+          otherEmployeeCount: 0,
+          unassignedEmployeeCount: 342,
+          totalSubunitCount: 4,
         },
-      });
-    },
+        rels: [],
+      },
+    });
+  },
   );
 
   await page.route(
