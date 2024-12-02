@@ -1,8 +1,12 @@
 import { expect, Page, TestInfo } from "@playwright/test";
-import { EnvData } from "../test-data/EnvData";
+import { UtilityPage } from "./UtilityPage";
 
 class ProductDetailsPage {
-  constructor(private page: Page, private testInfo : TestInfo) {}
+  utilityPage;
+
+  constructor(private page: Page, private testInfo : TestInfo) {
+    this.utilityPage = new UtilityPage(page,testInfo);
+  }
 
   private readonly addToCartButton = this.page.getByRole('button',{name:'Add to cart'});
   private readonly viewCartLink = this.page.getByRole('link',{name:'View Cart'});
@@ -11,9 +15,9 @@ class ProductDetailsPage {
   {
     await this.addToCartButton.click();
     await expect(this.page.getByText("Added!")).toBeVisible();
+    await this.utilityPage.attachScreenshotToReport("ProductPage");
     await expect(this.page.getByText("Your product has been added to cart.")).toBeVisible();
     await expect(this.page.getByRole("link",{name:"View Cart"})).toBeVisible();
-    await this.page.screenshot({path:"./test-screenshots/"  + EnvData.dateTime  + "_" + this.testInfo.title + "ProductInCart.png"})
   }
 
   async viewCart()

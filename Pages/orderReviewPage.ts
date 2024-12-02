@@ -1,13 +1,17 @@
 import { Page, TestInfo } from "@playwright/test";
-import { EnvData } from "../test-data/EnvData";
+import { UtilityPage } from "./UtilityPage";
 
 class OrderReviewPage {
-  constructor(private page: Page, private testInfo: TestInfo,) {}
+  utilityPage;
+
+  constructor(private page: Page, private testInfo: TestInfo,) {
+    this.utilityPage = new UtilityPage(page,testInfo);
+  }
 
   private readonly placeOrderLink = this.page.getByRole("link", { name: "Place Order" });
 
   async placeOrder() {
-    await this.page.screenshot({path:"./test-screenshots/"  + EnvData.dateTime  + "_" + this.testInfo.title + "OrderReviewPage.png"})
+    await this.utilityPage.attachScreenshotToReport("OrderPage");
     await this.placeOrderLink.click();
   }
 }

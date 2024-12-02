@@ -1,6 +1,6 @@
-import { ShoppingDetails } from "./shoppingDetails";
+import { ShoppingDetailsType } from "./shoppingDetailsType";
 
-export function getShoppingData(): ShoppingDetails {
+export function getShoppingData(): ShoppingDetailsType {
   return {
     category: "Women",
     subCategory: "Tops",

@@ -6,16 +6,20 @@ import ProductDetailsPage from "../../Pages/productDetailsPage";
 import CartPage from "../../Pages/cartPage";
 import OrderReviewPage from "../../Pages/orderReviewPage";
 
+test("Validate Cart is Empty",async ({page},testInfo)=>
+{
+   const loginPage : LoginPage=  new LoginPage(page,testInfo);
+   await loginPage.launchApplication();
+   await  loginPage.login();
+
+   const cartPage: CartPage = new CartPage(page, testInfo);
+   await cartPage.validateEmptyCartMessage();
+
+   await page.close();
+});
 
 test("Add Product and check product added to cart", async ({ page }, testInfo) => {
-  await page.route("**/*", (route, request) => {
-    //    console.log(request.resourceType());
-    if (request.resourceType() === "image")
-      route.abort()
-    else
-      route.continue();
-  });
-  
+
   const loginPage: LoginPage = new LoginPage(page, testInfo);
   await loginPage.launchApplication();
   await loginPage.login();

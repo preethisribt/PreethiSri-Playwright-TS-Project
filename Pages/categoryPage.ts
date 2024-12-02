@@ -1,5 +1,5 @@
 import { Page, TestInfo } from "@playwright/test";
-import {  ShoppingDetails } from "../test-data/shoppingDetails";
+import {  ShoppingDetailsType } from "../test-data/shoppingDetailsType";
 
 class CategoryPage {
   constructor(private page: Page, private testInfo : TestInfo) {}
@@ -8,7 +8,7 @@ class CategoryPage {
   private readonly subcategoryLink = (subcategory:string) => this.page.getByRole("link", { name: subcategory });
   private readonly viewProductLink = (product: string) => this.page.locator("//div[contains(@class,'productinfo')]//p[text()='" + product + "']/../..//following-sibling::div[@class='choose']//a[text()='View Product']");
 
-  async selectCategory(shoppingDetails : ShoppingDetails) {
+  async selectCategory(shoppingDetails : ShoppingDetailsType) {
     await this.categoryLink(shoppingDetails.category).click();
     await this.subcategoryLink(shoppingDetails.subCategory).click();
     await this.viewProductLink(shoppingDetails.product).click();
