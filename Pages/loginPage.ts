@@ -7,16 +7,20 @@ class LoginPage {
   utilityPage;
 
   constructor(private page: Page, private testInfo: TestInfo) {
-        this.utilityPage = new UtilityPage(page,testInfo);
+    this.utilityPage = new UtilityPage(page, testInfo);
   }
 
   private readonly loginApplicationLink = this.page.getByRole("link", { name: "Signup / Login" });
   private readonly logoutLink = this.page.getByRole("link", { name: "Logout" });
   private readonly emailIDTextBox = this.page.locator("form").filter({ hasText: "login" }).getByPlaceholder("Email Address");
+  private readonly registerNameTextBox = this.page.getByPlaceholder("Name");
+  private readonly registeremailIDTextBox = this.page.locator('form').filter({ hasText: 'Signup' }).getByPlaceholder('Email Address');
+  private readonly signupButton = this.page.getByRole("button", { name: "Signup" });
   private readonly passwordTextBox = this.page.getByPlaceholder("Password");
-  private readonly loginButton = this.page.getByRole("button", {name: "Login"});
-  private readonly LoginValiationText = this.page.getByText("Full-Fledged practice website for Automation Engineers").nth(0);
-  private readonly LogoutValiationText = this.page.getByText("Login to your account");
+  private readonly loginButton = this.page.getByRole("button", { name: "Login" });
+  private readonly loginValiationText = this.page.getByText("Full-Fledged practice website for Automation Engineers").nth(0);
+  private readonly incorrectCredentialsText = this.page.getByText("Your email or password is incorrect!");
+  private readonly alreadyRegisteredText = this.page.getByText("Email Address already exist!");
 
   async launchApplication() {
     //To block Ads in the application
@@ -34,22 +38,38 @@ class LoginPage {
     await this.page.goto(EnvData.url);
   }
 
-  async login(userName : string,password : string) {
+  async login(userName: string, password: string) {
     await this.loginApplicationLink.click();
     await this.emailIDTextBox.fill(userName);
     await this.passwordTextBox.fill(password);
     await this.loginButton.click();
   }
 
-  async validateLogin()
-  {
+  async registerUser(userName: string, emailId: string) {
+    await this.loginApplicationLink.click();
+    await this.registerNameTextBox.fill(userName);
+    await this.registeremailIDTextBox.fill(emailId);
+    await this.signupButton.click();
+    await this.utilityPage.attachScreenshotToReport("SignupPage");
+  }
+
+  async validateAlreadyRegistredUser() {
+    await expect(this.alreadyRegisteredText).toBeVisible();
+    await this.utilityPage.attachScreenshotToReport("LoginPage");
+  }
+
+  async validateLogin() {
     await expect(this.page.getByRole("link", { name: "Logout" })).toBeVisible();
-    await expect(this.LoginValiationText).toBeVisible();
+    await expect(this.loginValiationText).toBeVisible();
     await this.utilityPage.attachScreenshotToReport("HomePage");
   }
 
-  async validatelogout()
-  {
+  async validateIncorrectCredentails() {
+    await expect(this.incorrectCredentialsText).toBeVisible();
+    await this.utilityPage.attachScreenshotToReport("LoginPage");
+  }
+
+  async validatelogout() {
     await this.logoutLink.click();
     await expect(this.loginApplicationLink).toBeVisible();
     await this.utilityPage.attachScreenshotToReport("LoginPage");
