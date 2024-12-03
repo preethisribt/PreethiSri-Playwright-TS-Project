@@ -68,7 +68,7 @@ test("Handle Confirmation Popup", async ({ page }) => {
 test("Find broken link", async ({ page, request }) => {
   await page.goto("https://omayo.blogspot.com/search?q=playwright");
   const allLinks = await page.getByRole("link").all();
-
+ 
   const hrefs = await Promise.all(
     allLinks.map((link) => link.getAttribute("href"))
   );
