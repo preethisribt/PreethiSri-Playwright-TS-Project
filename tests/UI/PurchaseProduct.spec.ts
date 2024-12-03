@@ -5,14 +5,16 @@ import { getShoppingData } from "../../test-data/shoppingData";
 import ProductDetailsPage from "../../Pages/productDetailsPage";
 import CartPage from "../../Pages/cartPage";
 import OrderReviewPage from "../../Pages/orderReviewPage";
+import { EnvData } from "../../test-data/EnvData";
 
 test("Validate Cart is Empty",async ({page},testInfo)=>
 {
    const loginPage : LoginPage=  new LoginPage(page,testInfo);
    await loginPage.launchApplication();
-   await  loginPage.login();
+   await  loginPage.login(EnvData.UserName,EnvData.Password);
 
    const cartPage: CartPage = new CartPage(page, testInfo);
+   await cartPage.emptyCart();
    await cartPage.validateEmptyCartMessage();
 
    await page.close();
@@ -22,7 +24,7 @@ test("Add Product and check product added to cart", async ({ page }, testInfo) =
 
   const loginPage: LoginPage = new LoginPage(page, testInfo);
   await loginPage.launchApplication();
-  await loginPage.login();
+  await  loginPage.login(EnvData.UserName,EnvData.Password);
 
   const homePage: HomePage = new HomePage(page, testInfo);
   const categoryPage = await homePage.getCategoryPage();
