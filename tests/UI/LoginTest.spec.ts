@@ -5,7 +5,7 @@ import inValidLoginJsonData from "../../test-data/JsonData/InValidCredentails.js
 import { EnvData } from "../../test-data/EnvData";
 
 for (const loginData of LoginJsonData) {
-  test(`Validate Login Feature test for ${loginData.UserName}`, async ({ page }, testInfo) => {
+  test(`Validate Login Feature test for ${loginData.UserName}`, async ({ page  }, testInfo) => {
     const loginPage = new LoginPage(page, testInfo);
     await loginPage.launchApplication();
     await loginPage.login(loginData.UserName, loginData.Password);
@@ -22,7 +22,7 @@ for (const loginData of inValidLoginJsonData) {
   });
 }
 
-test("Validate Logout Feature", async ({ page }, testInfo) => {
+test("Validate Logout Feature", async ({  page }, testInfo) => {
   const loginPage = new LoginPage(page, testInfo);
   await loginPage.launchApplication();
   await loginPage.login(EnvData.UserName, EnvData.Password);
@@ -32,7 +32,7 @@ test("Validate Logout Feature", async ({ page }, testInfo) => {
 
 
 for (const loginData of LoginJsonData) {
-  test("Register user with existing emailID", async ({ page }, testInfo) => {
+  test("Register user with existing emailID", async ({  page }, testInfo) => {
     const loginPage = new LoginPage(page, testInfo);
     await loginPage.launchApplication();
     await loginPage.registerUser(loginData.UserName.split("@")[0], loginData.UserName);
