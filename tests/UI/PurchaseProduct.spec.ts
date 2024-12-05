@@ -43,3 +43,4 @@ test("Add Product and check product added to cart", async ({ page }, testInfo) =
 
   await loginPage.closeApp();
 });
+

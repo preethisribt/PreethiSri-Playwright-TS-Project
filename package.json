@@ -5,7 +5,7 @@
   "scripts": {
     "prepare": "husky",
     "lintAllFiles": "npx eslint .",
-    "lint":"npx eslint . --ignore-pattern playwright-report/* --ignore-pattern **/.js",
+    "lint": "npx eslint . --ignore-pattern playwright-report/* --ignore-pattern **/.js",
     "lint:fix": "npx eslint . --fix"
   },
   "keywords": [],
@@ -24,6 +24,7 @@
     "eslint-plugin-playwright": "^2.0.1",
     "globals": "^15.12.0",
     "husky": "^9.1.6",
+    "mailslurp-client": "^15.20.2",
     "typescript": "^5.7.2",
     "typescript-eslint": "^8.15.0"
   },

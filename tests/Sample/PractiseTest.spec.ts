@@ -1,4 +1,34 @@
 import { expect, test } from "@playwright/test";
+import { MailSlurp } from "mailslurp-client";
+
+test("Two Factor Authendication popup handle", async ({ page }) => {
+  const apiKey = process.env.MAILSLURP_API_KEY as string;
+
+  const mailslurp = new MailSlurp({ apiKey })
+  const password = "test-password"
+  const { id, emailAddress } = await mailslurp.createInbox();
+
+  //create account
+  await page.goto("https://playground.mailslurp.com");
+  await page.locator('[data-test="sign-in-create-account-link"]').click();
+  await page.locator("input[name=email]").fill(emailAddress);
+  await page.locator("input[name=password]").fill(password);
+  await page.getByRole("button", { name: "Create Account" }).click();
+
+  //wait for verification code
+  const email = await mailslurp.waitForLatestEmail(id);
+  
+  const code = /([0-9]{6})$/.exec(email.body!)![1];
+  console.log(code);
+
+  await page.getByPlaceholder("Enter your code").fill(code);
+  await page.getByRole("button",{name:"confirm"}).click();
+
+  await page.getByPlaceholder("Enter your username").fill(emailAddress);
+  await page.getByPlaceholder("Enter your password").fill(password);
+  await page.getByRole("button",{name:"Sign In"}).click();
+  await expect(page.getByText("Welcome")).toBeVisible();
+})
 
 test("Practise", async ({ page }) => {
   await page.route("**/*", (route, request) => {
@@ -68,7 +98,7 @@ test("Handle Confirmation Popup", async ({ page }) => {
 test("Find broken link", async ({ page, request }) => {
   await page.goto("https://omayo.blogspot.com/search?q=playwright");
   const allLinks = await page.getByRole("link").all();
- 
+
   const hrefs = await Promise.all(
     allLinks.map((link) => link.getAttribute("href"))
   );
