@@ -1,6 +1,5 @@
-import { expect, Frame, Locator, test } from "@playwright/test";
+import { expect, Locator, test } from "@playwright/test";
 import { MailSlurp } from "mailslurp-client";
-import { as } from "@faker-js/faker/dist/airline-BLb3y-7w";
 
 
 test("table", async ({ page }) => {
