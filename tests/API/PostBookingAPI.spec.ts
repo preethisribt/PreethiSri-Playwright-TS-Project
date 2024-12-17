@@ -1,4 +1,4 @@
-import { test, request, APIRequestContext, expect } from "@playwright/test";
+import { test, expect } from "@playwright/test";
 import { faker } from "@faker-js/faker";
 
 let bookingID: number;
