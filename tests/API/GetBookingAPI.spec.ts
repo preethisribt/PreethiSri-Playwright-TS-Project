@@ -1,5 +1,5 @@
 import { test, request, APIRequestContext, expect } from "@playwright/test"
-
+import jsonData from "../../test-data/API data/BookerPayload.json"
 let baseURLContext: APIRequestContext;
 
 test.beforeAll("Base URL", async () => {
@@ -48,31 +48,16 @@ test("Get booking using name", async () => {
     console.log(responseJSON);
     expect(response.status()).toBe(200);
     expect(response.statusText()).toBe("OK");
-    expect(response.ok()).toBeTruthy();
 });
 
-test("Get booking uisng ID", async () => {
-    const response = await baseURLContext.get("/booking/79");
-
-    expect(response.status()).toBe(200);
-    expect(response.statusText()).toEqual("OK");
+test("create Booking details", async () => {
+    const response = await baseURLContext.post("/booking", {
+        data: jsonData
+    });
 
     const responseJSON = await response.json();
     console.log(responseJSON);
-  
-    expect(responseJSON).toMatchObject({
-        "firstname": "John",
-        "lastname": "Smith",
-        "totalprice": 111,
-        "depositpaid": true,
-        "bookingdates": {
-            "checkin": "2018-01-01",
-            "checkout": "2019-01-01"
-        },
-        "additionalneeds": "Breakfast"
-    });
-    expect(await responseJSON.firstname).toEqual("John");
-    expect(await responseJSON.bookingdates.checkin).toEqual("2018-01-01");
+    expect(response.status()).toBe(200);
+    expect(response.statusText()).toBe("OK");
 });
-
 

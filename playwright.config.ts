@@ -1,8 +1,8 @@
-import { defineConfig } from "@playwright/test";
+import { defineConfig, devices } from "@playwright/test";
 import dotenv from 'dotenv';
 
 dotenv.config({
-  path: `D:/GitHub public repo/.env`      
+  path: `D:/GitHub public repo/.env`
 });
 
 export default defineConfig({
@@ -15,33 +15,33 @@ export default defineConfig({
 
   use: {
     trace: "retain-on-failure",
-    launchOptions:{
-      args: ["--start-maximized"],
-    },
+    // launchOptions:{
+    //   args: ["--start-maximized"],
+    // },
     video:"retain-on-failure"
   },
-  
+
   projects: [
     {
       name: "chromium",
-      use: { 
-        // ...devices["Desktop Chrome"]
-        viewport: null,
-         },
+      use: {
+        ...devices["Desktop Chrome"],
+        // viewport: null,
+      },
     },
 
-    // {
-    //   name: "firefox",
-    //   use: { 
-    //    // ...devices["Desktop Firefox"]
-    //    },
-    // },
+    {
+      name: "firefox",
+      use: {
+       ...devices["Desktop Firefox"]
+       },
+    },
 
-    // {
-    //   name: "webkit",
-    //   use: { 
-    //   //  ...devices["Desktop Safari"] 
-    //   },
-    // },
+    {
+      name: "webkit",
+      use: {
+       ...devices["Desktop Safari"]
+      },
+    },
   ],
 });
