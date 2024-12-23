@@ -1,24 +1,23 @@
-import { test, request, APIRequestContext, expect } from "@playwright/test"
-import jsonData from "../../test-data/API data/BookerPayload.json"
+import { test, request, APIRequestContext, expect } from "@playwright/test";
+import jsonData from "../../test-data/API data/BookerPayload.json";
 let baseURLContext: APIRequestContext;
 
 test.beforeAll("Base URL", async () => {
     baseURLContext = await request.newContext({
-        baseURL: "https://restful-booker.herokuapp.com/", extraHTTPHeaders: {
+        baseURL: "https://restful-booker.herokuapp.com/",
+        extraHTTPHeaders: {
             "Content-Type": "application/json"
         }
     });
-})
+});
 
 test("Fetch Auth token", async () => {
-    const response = await baseURLContext.post("auth",
-        {
-            data: {
-                "username": "admin",
-                "password": "password123"
-            }
+    const response = await baseURLContext.post("auth", {
+        data: {
+            username: "admin",
+            password: "password123"
         }
-    );
+    });
     const responseJson = await response.json();
 
     await expect(responseJson.token).toBeTruthy();
@@ -26,16 +25,18 @@ test("Fetch Auth token", async () => {
 });
 
 test("Get All booking IDs", async () => {
-    const response = await baseURLContext.get("https://restful-booker.herokuapp.com/booking", {
-        headers: { "Content-Type": "application/json" }
-    });
+    const response = await baseURLContext.get(
+        "https://restful-booker.herokuapp.com/booking",
+        {
+            headers: { "Content-Type": "application/json" }
+        }
+    );
     const responseJSON = await response.json();
     // Promise.all(responseJSON.map(e => console.log(e.bookingid)));
     console.log(await responseJSON);
 });
 
 test("Get booking using name", async () => {
-
     // const response = await baseURLContext.get("/booking?firstname=Josh&lastname=Allen");
     const response = await baseURLContext.get("/booking", {
         params: {
@@ -60,4 +61,3 @@ test("create Booking details", async () => {
     expect(response.status()).toBe(200);
     expect(response.statusText()).toBe("OK");
 });
-

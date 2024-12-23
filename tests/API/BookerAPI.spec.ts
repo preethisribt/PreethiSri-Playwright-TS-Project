@@ -8,31 +8,32 @@ const checkoutDate: string = new Date(date.setDate(date.getDate() + 7)).toISOStr
 const fname: string = faker.person.firstName();
 const lname: string = faker.person.lastName();
 const payload = {
-    "firstname": fname,
-    "lastname": lname,
-    "totalprice": faker.number.int({ max: 10000 }),
-    "depositpaid": true,
-    "bookingdates": {
-        "checkin": checkinDate,
-        "checkout": checkoutDate
+    firstname: fname,
+    lastname: lname,
+    totalprice: faker.number.int({ max: 10000 }),
+    depositpaid: true,
+    bookingdates: {
+        checkin: checkinDate,
+        checkout: checkoutDate
     },
-    "additionalneeds": "Breakfast"
-
+    additionalneeds: "Breakfast"
 };
 const baseURL: string = "https://restful-booker.herokuapp.com/booking";
 
-
 test.describe("create and get the booking", { tag: "@Booker" }, () => {
-    test.describe.configure({ mode: 'serial' });
+    test.describe.configure({ mode: "serial" });
 
     test("Create Booking", async ({ request }) => {
-        const response = await request.post("https://restful-booker.herokuapp.com/booking", {
-            headers: {
-                "Content-Type": "application/json"
-            },
+        const response = await request.post(
+            "https://restful-booker.herokuapp.com/booking",
+            {
+                headers: {
+                    "Content-Type": "application/json"
+                },
 
-            data: payload
-        });
+                data: payload
+            }
+        );
 
         const responseJSON = await response.json();
         console.log(responseJSON);
@@ -45,7 +46,9 @@ test.describe("create and get the booking", { tag: "@Booker" }, () => {
     });
 
     test("Get booking", async ({ request }) => {
-        const response = await request.get(`https://restful-booker.herokuapp.com/booking/${bookingID}`);
+        const response = await request.get(
+            `https://restful-booker.herokuapp.com/booking/${bookingID}`
+        );
         const responseJSON = await response.json();
         console.log(await responseJSON);
 
@@ -53,25 +56,28 @@ test.describe("create and get the booking", { tag: "@Booker" }, () => {
     });
 
     test("Update the booking", async ({ request }) => {
-        const response = await request.put(`https://restful-booker.herokuapp.com/booking/${bookingID}}`, {
-            headers: {
-                "Content-Type": "application/json",
-                "Cookie": "token=abc123",
-                "Authorization": "Basic YWRtaW46cGFzc3dvcmQxMjM="
-            },
-
-            data: {
-                "firstname": fname,
-                "lastname": "Browman",
-                "totalprice": faker.number.int({ max: 10000 }),
-                "depositpaid": true,
-                "bookingdates": {
-                    "checkin": checkinDate,
-                    "checkout": checkoutDate
+        const response = await request.put(
+            `https://restful-booker.herokuapp.com/booking/${bookingID}}`,
+            {
+                headers: {
+                    "Content-Type": "application/json",
+                    "Cookie": "token=abc123",
+                    "Authorization": "Basic YWRtaW46cGFzc3dvcmQxMjM="
                 },
-                "additionalneeds": "Breakfast"
+
+                data: {
+                    "firstname": fname,
+                    "lastname": "Browman",
+                    "totalprice": faker.number.int({ max: 10000 }),
+                    "depositpaid": true,
+                    "bookingdates": {
+                        "checkin": checkinDate,
+                        "checkout": checkoutDate
+                    },
+                    "additionalneeds": "Breakfast"
+                }
             }
-        });
+        );
 
         const responseJSON = await response.json();
 
@@ -79,9 +85,8 @@ test.describe("create and get the booking", { tag: "@Booker" }, () => {
         expect(response.status()).toBe(200);
         expect(response.statusText()).toBe("OK");
         expect(responseJSON.lastname).toStrictEqual("Browman");
-    })
+    });
 });
-
 
 test("Partial update of resource", { tag: "@Booker" }, async ({ request }) => {
     const bookingIDresponse = await request.get(`${baseURL}`);
@@ -89,15 +94,18 @@ test("Partial update of resource", { tag: "@Booker" }, async ({ request }) => {
     const bookingIDresponseJSON = await bookingIDresponse.json();
     console.log(await bookingIDresponseJSON);
 
-    const response = await request.patch(`${baseURL}/${bookingIDresponseJSON[0].bookingid}`, {
-        headers: {
-            "Cookie": "token=abc123",
-            "Authorization": "Basic YWRtaW46cGFzc3dvcmQxMjM="
-        },
-        data: {
-            "firstname": fname
+    const response = await request.patch(
+        `${baseURL}/${bookingIDresponseJSON[0].bookingid}`,
+        {
+            headers: {
+                "Cookie": "token=abc123",
+                "Authorization": "Basic YWRtaW46cGFzc3dvcmQxMjM=",
+            },
+            data: {
+                "firstname": fname
+            }
         }
-    });
+    );
 
     const responseJSON = await response.json();
     console.log("Fanme = ", fname);
@@ -105,5 +113,4 @@ test("Partial update of resource", { tag: "@Booker" }, async ({ request }) => {
     expect(response.status()).toBe(200);
     expect(response.statusText()).toBe("OK");
     expect(responseJSON.firstname).toStrictEqual(fname);
-
-})
+});

@@ -1,19 +1,24 @@
 import { Page, TestInfo } from "@playwright/test";
-import { UtilityPage } from "./UtilityPage";
+import { UtilityPage } from "../Utility/UtilityPage";
 
 class OrderReviewPage {
-  utilityPage;
+    utilityPage;
 
-  constructor(private page: Page, private testInfo: TestInfo,) {
-    this.utilityPage = new UtilityPage(page,testInfo);
-  }
+    constructor(
+        private page: Page,
+        private testInfo: TestInfo
+    ) {
+        this.utilityPage = new UtilityPage(page, testInfo);
+    }
 
-  private readonly placeOrderLink = this.page.getByRole("link", { name: "Place Order" });
+    private readonly placeOrderLink = this.page.getByRole("link", {
+        name: "Place Order"
+    });
 
-  async placeOrder() {
-    await this.utilityPage.attachScreenshotToReport("OrderPage");
-    await this.placeOrderLink.click();
-  }
+    async placeOrder() {
+        await this.utilityPage.attachScreenshotToReport("OrderPage");
+        await this.placeOrderLink.click();
+    }
 }
 
 export default OrderReviewPage;
