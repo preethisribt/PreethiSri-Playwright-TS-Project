@@ -37,7 +37,6 @@ test("Keyboard and Mouse", async ({ page }) => {
     await page.keyboard.press("Control+A");
     await page.keyboard.press("Delete");
     await page.keyboard.type("From Automation");
-    await page.pause();
 });
 
 test("Frames1", async ({ page }) => {
@@ -53,7 +52,6 @@ test("Frames1", async ({ page }) => {
     await childFrame
         .getByPlaceholder("Enter email")
         .fill("childsample@gmail.com");
-    await page.pause();
 });
 
 test("Frames2", async ({ page }) => {

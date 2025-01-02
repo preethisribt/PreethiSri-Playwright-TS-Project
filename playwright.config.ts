@@ -1,9 +1,7 @@
 import { defineConfig, devices } from "@playwright/test";
 import dotenv from "dotenv";
 
-dotenv.config({
-    path: `D:/GitHub public repo/.env`
-});
+dotenv.config();
 
 export default defineConfig({
     testDir: "./tests",

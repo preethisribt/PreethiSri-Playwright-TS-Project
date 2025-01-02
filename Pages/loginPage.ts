@@ -1,5 +1,5 @@
 import { expect, Page, TestInfo } from "@playwright/test";
-import { EnvData } from "../test-data/EnvData";
+import { DataUtility } from "../test-data/DataUtility";
 import { PlaywrightBlocker } from "@cliqz/adblocker-playwright";
 import { UtilityPage } from "../Utility/UtilityPage";
 
@@ -33,7 +33,7 @@ class LoginPage {
             else route.continue();
         });
 
-        await this.page.goto(EnvData.url);
+        await this.page.goto(DataUtility.url);
     }
 
     async login(userName: string, password: string) {
@@ -56,7 +56,7 @@ class LoginPage {
         await this.utilityPage.attachScreenshotToReport("LoginPage");
     }
 
-    async validateLogin() {
+    async validateLoginIsSuccessful() {
         await expect(this.page.getByRole("link", { name: "Logout" })).toBeVisible();
         await expect(this.loginValiationText).toBeVisible();
         await this.utilityPage.attachScreenshotToReport("HomePage");
@@ -67,7 +67,7 @@ class LoginPage {
         await this.utilityPage.attachScreenshotToReport("LoginPage");
     }
 
-    async validatelogout() {
+    async logoutAndValidate() {
         await this.logoutLink.click();
         await expect(this.loginApplicationLink).toBeVisible();
         await this.utilityPage.attachScreenshotToReport("LoginPage");

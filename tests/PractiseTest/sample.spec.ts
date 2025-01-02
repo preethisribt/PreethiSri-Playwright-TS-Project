@@ -87,5 +87,4 @@ test("sample", async ({ page }) => {
     await page.getByPlaceholder("password").fill("admin123");
     await page.getByRole("button", { name: "Login" }).click();
     // await page.getByRole('link', {name: 'Dashboard'}).click();
-    await page.pause();
 });

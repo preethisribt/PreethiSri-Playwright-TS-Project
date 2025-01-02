@@ -16,9 +16,12 @@ class CartPage {
     private readonly emptyCartText = this.page.getByText("Cart is empty! Click here to buy products.");
     private readonly cartLink = this.page.getByRole("link", { name: "Cart" });
 
-    async validateCart(product:string) {
+    async validateCart(products:string[]) {
         await this.utilityPage.attachScreenshotToReport("CartPage");
-        await expect(this.cartProductName(product)).toBeVisible();
+
+        await Promise.allSettled(products.map(e =>{
+            expect(this.cartProductName(e)).toBeVisible();
+        }));
     }
 
     async proceedToCheckout() {
