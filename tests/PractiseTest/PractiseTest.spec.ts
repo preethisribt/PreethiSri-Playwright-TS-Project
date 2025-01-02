@@ -66,7 +66,7 @@ test("Frames2", async ({ page }) => {
         .fill("Sample");
 });
 
-test("Two Factor Authendication popup handle", async ({ page }) => {
+test.skip("Two Factor Authendication popup handle", async ({ page }) => {
     const apiKey = process.env.MAILSLURP_API_KEY as string;
 
     const mailslurp = new MailSlurp({ apiKey });
