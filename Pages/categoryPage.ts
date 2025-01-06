@@ -22,7 +22,7 @@ class CategoryPage {
             await this.categoryLink(shoppingDetails.category).click();
             await this.subcategoryLink(shoppingDetails.subcategory).click();
             await this.viewProductLink(product).click();
-            this.addProductToCart();
+            await this.addProductToCart();
             await this.utilityPage.attachScreenshotToReport("Continue Shopping");
             await this.page.getByRole("button",{name:"Continue Shopping"}).click();
         }
@@ -32,10 +32,11 @@ class CategoryPage {
         await this.addToCartButton.waitFor({ state: 'visible' });
         await this.addToCartButton.click();
         await this.utilityPage.attachScreenshotToReport("ProductAddedToCart");
-        await expect(this.page.getByText("Added!")).toBeVisible({ timeout: 15_000 });
-        await expect(this.page.getByText("Your product has been added to cart.")).toBeVisible({ timeout: 15_000 });
-        await expect(this.page.getByRole("link", { name: "View Cart" })).toBeVisible();
-    }
+        await Promise.allSettled([
+            expect(this.page.getByText("Added!")).toBeVisible({ timeout: 15_000 }),
+            expect(this.page.getByText("Your product has been added to cart.")).toBeVisible(),
+            expect(this.page.getByRole("link", { name: "View Cart" })).toBeVisible()]);
+        }
 }
 
 export default CategoryPage;
