@@ -12,16 +12,31 @@ class CartPage {
     }
 
     private readonly checkoutLink = this.page.getByText("Proceed To Checkout");
-    private readonly cartProductName = (product)=> this.page.getByText(product);
+    private readonly cartProductName = (product) =>
+        this.page.getByText(product);
     private readonly emptyCartText = this.page.getByText("Cart is empty! Click here to buy products.");
     private readonly cartLink = this.page.getByRole("link", { name: "Cart" });
+    private readonly quantityText = this.page.locator(".cart_quantity button");
 
-    async validateCart(products:string[]) {
+    async validateProductNameInCart(products: string[]) {
         await this.utilityPage.attachScreenshotToReport("CartPage");
 
-        await Promise.allSettled(products.map(e =>{
-            expect(this.cartProductName(e)).toBeVisible();
-        }));
+        await Promise.allSettled(
+            products.map((e) => {
+                expect(this.cartProductName(e)).toBeVisible();
+            })
+        );
+    }
+
+    async validateCart(product: string,quantity: number)
+    {
+        await this.utilityPage.attachScreenshotToReport("CartPage");
+        await expect(this.cartProductName(product)).toBeVisible();
+        await this.validateQuantityInCart(quantity);
+    }
+
+    async validateQuantityInCart(quantity: number) {
+        await expect(await this.quantityText.textContent()).toBe(String(quantity));
     }
 
     async proceedToCheckout() {
@@ -39,9 +54,10 @@ class CartPage {
         await this.cartLink.click();
         await this.utilityPage.attachScreenshotToReport("ProductCartPage");
 
-        const deleteProduct = await this.page.locator("a.cart_quantity_delete").all();
-        for (const product of deleteProduct)
-        {
+        const deleteProduct = await this.page
+            .locator("a.cart_quantity_delete")
+            .all();
+        for (const product of deleteProduct) {
             await product.click();
         }
     }

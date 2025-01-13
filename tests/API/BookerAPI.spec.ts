@@ -4,7 +4,9 @@ import { faker } from "@faker-js/faker";
 let bookingID: number;
 const date: Date = new Date();
 const checkinDate: string = date.toISOString().split("T")[0];
-const checkoutDate: string = new Date(date.setDate(date.getDate() + 7)).toISOString().split("T")[0];
+const checkoutDate: string = new Date(date.setDate(date.getDate() + 7))
+    .toISOString()
+    .split("T")[0];
 const fname: string = faker.person.firstName();
 const lname: string = faker.person.lastName();
 const payload = {
@@ -61,20 +63,20 @@ test.describe("create and get the booking", { tag: "@Booker" }, () => {
             {
                 headers: {
                     "Content-Type": "application/json",
-                    "Cookie": "token=abc123",
-                    "Authorization": "Basic YWRtaW46cGFzc3dvcmQxMjM="
+                    Cookie: "token=abc123",
+                    Authorization: "Basic YWRtaW46cGFzc3dvcmQxMjM="
                 },
 
                 data: {
-                    "firstname": fname,
-                    "lastname": "Browman",
-                    "totalprice": faker.number.int({ max: 10000 }),
-                    "depositpaid": true,
-                    "bookingdates": {
-                        "checkin": checkinDate,
-                        "checkout": checkoutDate
+                    firstname: fname,
+                    lastname: "Browman",
+                    totalprice: faker.number.int({ max: 10000 }),
+                    depositpaid: true,
+                    bookingdates: {
+                        checkin: checkinDate,
+                        checkout: checkoutDate
                     },
-                    "additionalneeds": "Breakfast"
+                    additionalneeds: "Breakfast"
                 }
             }
         );
@@ -98,11 +100,11 @@ test("Partial update of resource", { tag: "@Booker" }, async ({ request }) => {
         `${baseURL}/${bookingIDresponseJSON[0].bookingid}`,
         {
             headers: {
-                "Cookie": "token=abc123",
-                "Authorization": "Basic YWRtaW46cGFzc3dvcmQxMjM=",
+                Cookie: "token=abc123",
+                Authorization: "Basic YWRtaW46cGFzc3dvcmQxMjM="
             },
             data: {
-                "firstname": fname
+                firstname: fname
             }
         }
     );

@@ -15,18 +15,18 @@ export default defineConfig({
         // launchOptions:{
         //   args: ["--start-maximized"],
         // },
-        video: "retain-on-failure",
+        video: "retain-on-failure"
     },
 
     projects: [
         {
             name: "chromium",
             use: {
-                ...devices["Desktop Chrome"],
+                ...devices["Desktop Chrome"]
                 // headless:false
                 // viewport: null,
             }
-        },
+        }
         //
         // {
         //     name: "firefox",

@@ -1,6 +1,6 @@
 import { test } from "@playwright/test";
-import LoginPage from "../../Pages/loginPage";
-import { validUsers,invalidUsers } from "../../test-data/LoginTestData"
+import LoginPage from "../../../Pages/loginPage";
+import { validUsers, invalidUsers } from "../../../test-data/LoginTestData";
 
 for (const loginData of validUsers) {
     test(`Validate Login Feature test for ${loginData.UserName}`, async ({ page }, testInfo) => {

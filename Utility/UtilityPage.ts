@@ -2,7 +2,10 @@ import { Page, TestInfo } from "@playwright/test";
 import { DataUtility } from "../test-data/DataUtility";
 
 export class UtilityPage {
-    constructor(private page: Page, private testInfo: TestInfo) {}
+    constructor(
+        private page: Page,
+        private testInfo: TestInfo
+    ) {}
 
     async attachScreenshotToReport(pageName: string) {
         await this.testInfo.attach(
@@ -14,4 +17,3 @@ export class UtilityPage {
         );
     }
 }
-
