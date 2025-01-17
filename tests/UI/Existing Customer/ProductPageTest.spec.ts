@@ -1,13 +1,13 @@
 import { test } from "@playwright/test";
-import LoginPage from "../../../Pages/loginPage";
+import LoginPage from "../../../Pages/LoginPage";
 import { validUser } from "../../../test-data/LoginTestData";
 import datas from "../../../test-data/UI data/productPageTestData1.json";
 import { ProductDetail } from "../../../test-data/DataUtility";
 import { BrandPage } from "../../../Pages/BrandPage";
 import { ProductPage } from "../../../Pages/ProductPage";
-import ProductDetailsPage from "../../../Pages/productDetailsPage";
-import CartPage from "../../../Pages/cartPage";
-import OrderReviewPage from "../../../Pages/orderReviewPage";
+import ProductDetailsPage from "../../../Pages/ProductDetailsPage";
+import CartPage from "../../../Pages/CartPage";
+import OrderReviewPage from "../../../Pages/OrderReviewPage";
 
 const dataArray = datas as ProductDetail[];
 let loginPage: LoginPage;

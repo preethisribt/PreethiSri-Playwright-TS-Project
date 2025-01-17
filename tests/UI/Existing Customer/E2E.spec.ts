@@ -1,11 +1,13 @@
 import { test } from "@playwright/test";
-import LoginPage from "../../../Pages/loginPage";
-import HomePage from "../../../Pages/homePage";
-import ProductDetailsPage from "../../../Pages/productDetailsPage";
-import CartPage from "../../../Pages/cartPage";
-import OrderReviewPage from "../../../Pages/orderReviewPage";
+import LoginPage from "../../../Pages/LoginPage";
+import HomePage from "../../../Pages/HomePage";
+import CartPage from "../../../Pages/CartPage";
+import OrderReviewPage from "../../../Pages/OrderReviewPage";
 import { validUser } from "../../../test-data/LoginTestData";
 import { CustomerData, DataUtility } from "../../../test-data/DataUtility";
+import PaymentPage from "../../../Pages/PaymentPage";
+import OrderConfirmationPage from "../../../Pages/OrderConfirmationPage";
+
 const dataFromCSV: CustomerData[] = DataUtility.getDataFromCSV();
 let loginPage: LoginPage;
 
@@ -27,14 +29,20 @@ for (const data of dataFromCSV) {
         const categoryPage = await homePage.getCategoryPage();
         await categoryPage.selectProductFromTheCategory(data);
 
-        const productDetailsPage: ProductDetailsPage = new ProductDetailsPage(page, testInfo);
-        await productDetailsPage.viewCart();
-
         const cartPage: CartPage = new CartPage(page, testInfo);
+        await cartPage.cartHeaderLink();
         await cartPage.validateProductNameInCart(categoryPage.products);
         await cartPage.proceedToCheckout();
 
         const orderReviewPage: OrderReviewPage = new OrderReviewPage(page, testInfo);
         await orderReviewPage.placeOrder();
+
+        const paymentPage:PaymentPage = new PaymentPage(page, testInfo);
+        await paymentPage.selectPaymentMethod();
+        await paymentPage.confirmPayment();
+
+        const orderConfirmationPage:OrderConfirmationPage = new OrderConfirmationPage(page, testInfo);
+        await orderConfirmationPage.validateOrderConfirmationMessage();
+        
     });
 }

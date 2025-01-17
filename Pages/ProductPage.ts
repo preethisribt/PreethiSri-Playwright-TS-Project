@@ -5,11 +5,7 @@ export class ProductPage {
     private utilityPage: UtilityPage;
 
     private readonly viewProductLink = (product: string) =>
-        this.page.locator(
-            "//div[contains(@class,'productinfo')]//p[text()='" +
-                product +
-                "']/../..//following-sibling::div[@class='choose']//a[text()='View Product']"
-        );
+        this.page.locator( "//div[contains(@class,'productinfo')]//p[text()='" +product + "']/../..//following-sibling::div[@class='choose']//a[text()='View Product']" );
 
     constructor(
         private page: Page,

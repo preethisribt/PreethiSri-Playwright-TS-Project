@@ -7,8 +7,10 @@ const checkinDate: string = date.toISOString().split("T")[0];
 const checkoutDate: string = new Date(date.setDate(date.getDate() + 7))
     .toISOString()
     .split("T")[0];
+const baseURL: string = "https://restful-booker.herokuapp.com/booking";
 const fname: string = faker.person.firstName();
 const lname: string = faker.person.lastName();
+
 const payload = {
     firstname: fname,
     lastname: lname,
@@ -20,7 +22,6 @@ const payload = {
     },
     additionalneeds: "Breakfast"
 };
-const baseURL: string = "https://restful-booker.herokuapp.com/booking";
 
 test.describe("create and get the booking", { tag: "@Booker" }, () => {
     test.describe.configure({ mode: "serial" });

@@ -2,7 +2,7 @@ import { Page, TestInfo } from "@playwright/test";
 import { UtilityPage } from "../Utility/UtilityPage";
 import { CustomerData } from "../test-data/DataUtility";
 import { ProductPage } from "./ProductPage";
-import ProductDetailsPage from "./productDetailsPage";
+import ProductDetailsPage from "./ProductDetailsPage";
 
 class CategoryPage {
     private utilityPage: UtilityPage;

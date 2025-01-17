@@ -4,7 +4,7 @@ import { PlaywrightBlocker } from "@cliqz/adblocker-playwright";
 import { UtilityPage } from "../Utility/UtilityPage";
 
 class LoginPage {
-    utilityPage;
+    private utilityPage: UtilityPage;
 
     constructor(
         private page: Page,
@@ -13,12 +13,8 @@ class LoginPage {
         this.utilityPage = new UtilityPage(page, testInfo);
     }
 
-    private readonly loginApplicationLink = this.page.getByRole("link", {
-        name: "Signup / Login"
-    });
-    private readonly logoutLink = this.page.getByRole("link", {
-        name: "Logout"
-    });
+    private readonly loginApplicationLink = this.page.getByRole("link", { name: "Signup / Login" });
+    private readonly logoutLink = this.page.getByRole("link", { name: "Logout"  });
     private readonly emailIDTextBox = this.page
         .locator("form")
         .filter({ hasText: "login" })
@@ -28,22 +24,14 @@ class LoginPage {
         .locator("form")
         .filter({ hasText: "Signup" })
         .getByPlaceholder("Email Address");
-    private readonly signupButton = this.page.getByRole("button", {
-        name: "Signup"
-    });
+    private readonly signupButton = this.page.getByRole("button", { name: "Signup"  });
     private readonly passwordTextBox = this.page.getByPlaceholder("Password");
-    private readonly loginButton = this.page.getByRole("button", {
-        name: "Login"
-    });
+    private readonly loginButton = this.page.getByRole("button", {    name: "Login"    });
     private readonly loginValiationText = this.page
         .getByText("Full-Fledged practice website for Automation Engineers")
         .nth(0);
-    private readonly incorrectCredentialsText = this.page.getByText(
-        "Your email or password is incorrect!"
-    );
-    private readonly alreadyRegisteredText = this.page.getByText(
-        "Email Address already exist!"
-    );
+    private readonly incorrectCredentialsText = this.page.getByText(  "Your email or password is incorrect!" );
+    private readonly alreadyRegisteredText = this.page.getByText(  "Email Address already exist!"  );
 
     async launchApplication(): Promise<void> {
         //To block Ads in the application

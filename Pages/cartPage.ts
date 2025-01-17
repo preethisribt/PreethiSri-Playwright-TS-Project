@@ -2,8 +2,7 @@ import { expect, Page, TestInfo } from "@playwright/test";
 import { UtilityPage } from "../Utility/UtilityPage";
 
 class CartPage {
-    utilityPage;
-
+    private utilityPage: UtilityPage;
     constructor(
         private page: Page,
         private testInfo: TestInfo
@@ -17,6 +16,7 @@ class CartPage {
     private readonly emptyCartText = this.page.getByText("Cart is empty! Click here to buy products.");
     private readonly cartLink = this.page.getByRole("link", { name: "Cart" });
     private readonly quantityText = this.page.locator(".cart_quantity button");
+    private readonly viewCartHeaderLink = this.page.getByRole('link', { name: /Cart/i });
 
     async validateProductNameInCart(products: string[]) {
         await this.utilityPage.attachScreenshotToReport("CartPage");
@@ -51,7 +51,7 @@ class CartPage {
     }
 
     async emptyCart() {
-        await this.cartLink.click();
+        await this.cartHeaderLink();
         await this.utilityPage.attachScreenshotToReport("ProductCartPage");
 
         const deleteProduct = await this.page
@@ -60,6 +60,11 @@ class CartPage {
         for (const product of deleteProduct) {
             await product.click();
         }
+    }
+
+    async cartHeaderLink()
+    {
+        await this.viewCartHeaderLink.click();
     }
 }
 

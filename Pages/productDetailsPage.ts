@@ -2,7 +2,7 @@ import { expect, Page, TestInfo } from "@playwright/test";
 import { UtilityPage } from "../Utility/UtilityPage";
 
 class ProductDetailsPage {
-    utilityPage;
+    private utilityPage: UtilityPage;
 
     constructor(
         private page: Page,

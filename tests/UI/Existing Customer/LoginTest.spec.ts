@@ -1,5 +1,5 @@
 import { test } from "@playwright/test";
-import LoginPage from "../../../Pages/loginPage";
+import LoginPage from "../../../Pages/LoginPage";
 import { validUsers, invalidUsers } from "../../../test-data/LoginTestData";
 
 for (const loginData of validUsers) {
