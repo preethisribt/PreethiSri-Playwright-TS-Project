@@ -6,10 +6,7 @@ import { UtilityPage } from "../Utility/UtilityPage";
 class LoginPage {
     private utilityPage: UtilityPage;
 
-    constructor(
-        private page: Page,
-        private testInfo: TestInfo
-    ) {
+    constructor(private page: Page, private testInfo: TestInfo) {
         this.utilityPage = new UtilityPage(page, testInfo);
     }
 

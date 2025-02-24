@@ -1,9 +1,9 @@
 import { test } from "@playwright/test";
-import LoginPage from "../../../Pages/LoginPage";
+import LoginPage from "../../../Pages/loginPage";
 import { validUsers, invalidUsers } from "../../../test-data/LoginTestData";
 
 for (const loginData of validUsers) {
-    test(`Validate Login Feature test for ${loginData.UserName}`, async ({ page }, testInfo) => {
+    test(`Validate Login Feature test for ${loginData.UserName}`,{tag:"@smoke"}, async ({ page }, testInfo) => {
         const loginPage = new LoginPage(page, testInfo);
         await loginPage.launchApplication();
         await loginPage.login(loginData.UserName, loginData.Password);
@@ -12,7 +12,7 @@ for (const loginData of validUsers) {
 }
 
 for (const loginData of invalidUsers) {
-    test(`Validate Login with invalid credentials  ${loginData.UserName}`, async ({ page }, testInfo) => {
+    test(`Validate Login with invalid credentials  ${loginData.UserName}`,{tag:"@Regression"}, async ({ page }, testInfo) => {
         const loginPage = new LoginPage(page, testInfo);
         await loginPage.launchApplication();
         await loginPage.login(loginData.UserName, loginData.Password);
@@ -21,7 +21,7 @@ for (const loginData of invalidUsers) {
 }
 
 for (const loginData of validUsers) {
-    test("Validate Logout Feature", async ({ page }, testInfo) => {
+    test("Validate Logout Feature", {tag:"@Regression"},async ({ page }, testInfo) => {
         const loginPage = new LoginPage(page, testInfo);
         await loginPage.launchApplication();
         await loginPage.login(loginData.UserName, loginData.Password);
@@ -31,7 +31,7 @@ for (const loginData of validUsers) {
 }
 
 for (const loginData of validUsers) {
-    test("Register user with existing emailID", async ({ page }, testInfo) => {
+    test("Register user with existing emailID",{tag:"@Regression"},async ({ page }, testInfo) => {
         const loginPage = new LoginPage(page, testInfo);
         await loginPage.launchApplication();
         await loginPage.registerUser(

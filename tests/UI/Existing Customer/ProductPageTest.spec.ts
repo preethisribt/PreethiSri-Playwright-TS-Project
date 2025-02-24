@@ -1,13 +1,13 @@
 import { test } from "@playwright/test";
-import LoginPage from "../../../Pages/LoginPage";
+import LoginPage from "../../../Pages/loginPage";
 import { validUser } from "../../../test-data/LoginTestData";
 import datas from "../../../test-data/UI data/productPageTestData1.json";
 import { ProductDetail } from "../../../test-data/DataUtility";
 import { BrandPage } from "../../../Pages/BrandPage";
 import { ProductPage } from "../../../Pages/ProductPage";
-import ProductDetailsPage from "../../../Pages/ProductDetailsPage";
-import CartPage from "../../../Pages/CartPage";
-import OrderReviewPage from "../../../Pages/OrderReviewPage";
+import ProductDetailsPage from "../../../Pages/productDetailsPage";
+import CartPage from "../../../Pages/cartPage";
+import OrderReviewPage from "../../../Pages/orderReviewPage";
 
 const dataArray = datas as ProductDetail[];
 let loginPage: LoginPage;
@@ -19,7 +19,7 @@ test.beforeEach("Launch Application and login", async ({ page }, testInfo) => {
 });
 
 dataArray.forEach((data) => {
-    test(`validate product based on brand for bulk order ${data.dataID}`, async ({ page }, testInfo) => {
+    test(`validate product based on brand for bulk order ${data.dataID}`,{tag:"@Regression"},async ({ page }, testInfo) => {
         const brandPage: BrandPage = new BrandPage(page, testInfo);
         await brandPage.selectBrand(data.brand);
 

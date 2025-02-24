@@ -1,8 +1,8 @@
 import { test } from "@playwright/test";
-import LoginPage from "../../../Pages/LoginPage";
-import HomePage from "../../../Pages/HomePage";
-import CartPage from "../../../Pages/CartPage";
-import OrderReviewPage from "../../../Pages/OrderReviewPage";
+import LoginPage from "../../../Pages/loginPage";
+import HomePage from "../../../Pages/homePage";
+import CartPage from "../../../Pages/cartPage";
+import OrderReviewPage from "../../../Pages/orderReviewPage";
 import { validUser } from "../../../test-data/LoginTestData";
 import { CustomerData, DataUtility } from "../../../test-data/DataUtility";
 import PaymentPage from "../../../Pages/PaymentPage";
@@ -17,14 +17,14 @@ test.beforeEach("Launch Application and login", async ({ page }, testInfo) => {
     await loginPage.login(validUser.UserName, validUser.Password);
 });
 
-test("Validate Cart is Empty", async ({ page }, testInfo) => {
+test("Validate Cart is Empty",{tag:"@Regression"}, async ({ page }, testInfo) => {
     const cartPage: CartPage = new CartPage(page, testInfo);
     await cartPage.emptyCart();
     await cartPage.validateEmptyCartMessage();
 });
 
 for (const data of dataFromCSV) {
-    test(`Add Product and check product added to cart ${data.dataID}`, async ({ page }, testInfo) => {
+    test(`Add Product and check product added to cart ${data.dataID}`,{tag:"@Regression"}, async ({ page }, testInfo) => {
         const homePage: HomePage = new HomePage(page, testInfo);
         const categoryPage = await homePage.getCategoryPage();
         await categoryPage.selectProductFromTheCategory(data);
