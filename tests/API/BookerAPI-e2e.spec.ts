@@ -1,5 +1,10 @@
 import { test, expect } from "@playwright/test";
 import { faker } from "@faker-js/faker";
+import { UtilityPage } from "../../Utility/UtilityPage";
+import { DataUtility } from "../../test-data/DataUtility";
+
+
+let utilityPage: UtilityPage;
 
 let bookingID: number;
 const date: Date = new Date();
@@ -116,4 +121,35 @@ test("Partial update of resource", { tag: "@Booker" }, async ({ request }) => {
     expect(response.status()).toBe(200);
     expect(response.statusText()).toBe("OK");
     expect(responseJSON.firstname).toStrictEqual(fname);
+});
+
+
+test("Create Booking2", async ({ request }) => {
+    const dataUtility: DataUtility = new DataUtility();
+
+    const payloadData = dataUtility.apiTestData({
+        firstname: fname,
+        lastname: lname,
+    });
+
+    const response = await request.post(
+        "https://restful-booker.herokuapp.com/booking",
+        {
+            headers: {
+                "Content-Type": "application/json"
+            },
+
+            data: payloadData
+        }
+    );
+
+    const responseJSON = await response.json();
+    console.log(responseJSON);
+
+    expect(response.status()).toBe(200);
+    expect(response.statusText()).toBe("OK");
+
+    bookingID = await responseJSON.bookingid;
+    expect(bookingID).toBeTruthy();
+
 });
