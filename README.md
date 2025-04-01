@@ -10,25 +10,6 @@ It enables end-to-end testing for web applications and API testing, ensuring rob
 -	[Git](https://git-scm.com/downloads)
 
 **Installation**
-<<<<<<< HEAD
-=======
-**1.Clone the Repository**
-        git clone https://github.com/preethisribt/PreethiSri-Playwright-TS-Project.git
-**2.Navigate to the Project Directory**
-        cd PreethiSri-Playwright-TS-Project
-**3.Install Dependencies**
-        npm install
-**4.Install Playwright Browsers**
-        npx playwright install
-**5.Running Tests**
-  ** Execute All Tests: **
-        npx playwright test
-  ** Run Tests in a Specific Browser (e.g., Chromium):  **
-        npx playwright test --project=chromium
-  ** Run a Specific Spec File:** 
-        npx playwright test LoginTest.spec.ts 
->>>>>>> 82e7317f0faa129b4dab3aee0d568e49950c81e5
-
 **1.Clone the Repository**
         git clone https://github.com/preethisribt/PreethiSri-Playwright-TS-Project.git
 
