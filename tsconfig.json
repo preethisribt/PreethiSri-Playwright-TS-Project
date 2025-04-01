@@ -8,6 +8,7 @@
         "outDir": "JS_Files",
         "resolveJsonModule": true,
         "esModuleInterop": true,
-        "noImplicitAny": false
+        "noImplicitAny": false,
+        "sourceMap": true,
     }
 }

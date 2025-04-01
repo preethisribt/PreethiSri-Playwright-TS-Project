@@ -34,10 +34,7 @@ for (const loginData of validUsers) {
     test("Register user with existing emailID",{tag:"@Regression"},async ({ page }, testInfo) => {
         const loginPage = new LoginPage(page, testInfo);
         await loginPage.launchApplication();
-        await loginPage.registerUser(
-            loginData.UserName.split("@")[0], //username - to enter username, name is extracted from emailID test data
-            loginData.UserName //emailID
-        );
+        await loginPage.registerUser(loginData.Name, loginData.UserName);
         await loginPage.validateAlreadyRegistredUser();
     });
 }

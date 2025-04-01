@@ -1,9 +1,12 @@
-import { defineConfig, devices } from "@playwright/test";
-import dotenv from "dotenv";
-
-dotenv.config();
-
-export default defineConfig({
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const test_1 = require("@playwright/test");
+const dotenv_1 = __importDefault(require("dotenv"));
+dotenv_1.default.config();
+exports.default = (0, test_1.defineConfig)({
     testDir: "./tests",
     fullyParallel: true,
     forbidOnly: !!process.env.CI,
@@ -17,13 +20,12 @@ export default defineConfig({
         // },
         video: "retain-on-failure"
     },
-
     projects: [
         {
             name: "chromium",
             use: {
-                ...devices["Desktop Chrome"],
-                  headless:false
+                ...test_1.devices["Desktop Chrome"],
+                headless: false
                 // viewport: null,
             }
         }
@@ -43,3 +45,4 @@ export default defineConfig({
         // }
     ]
 });
+//# sourceMappingURL=playwright.config.js.map

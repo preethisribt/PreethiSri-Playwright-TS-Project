@@ -1,9 +1,11 @@
 interface Credentials {
+    Name?: string
     UserName: string;
     Password: string;
 }
 
 export const validUser: Credentials = {
+    Name: "Preethi",
     UserName: "preethiAutomation@gmail.com",
     Password: "test1#123"
 }
