@@ -1,8 +1,9 @@
 import { test } from "@playwright/test";
+import OrderReviewPage from "../../../Pages/orderReviewPage";
 import LoginPage from "../../../Pages/loginPage";
 import HomePage from "../../../Pages/homePage";
 import CartPage from "../../../Pages/cartPage";
-import OrderReviewPage from "../../../Pages/orderReviewPage";
+
 import { validUser } from "../../../test-data/LoginTestData";
 import { CustomerData, DataUtility } from "../../../test-data/DataUtility";
 import PaymentPage from "../../../Pages/PaymentPage";
@@ -16,8 +17,6 @@ test.beforeEach("Launch Application and login", async ({ page }, testInfo) => {
     await loginPage.launchApplication();
     await loginPage.login(validUser.UserName, validUser.Password);
 });
-
-
 
 for (const data of dataFromCSV) {
     test(`Validate customer able to purchage product ${data.dataID}`,{tag:"@Regression"}, async ({ page }, testInfo) => {
