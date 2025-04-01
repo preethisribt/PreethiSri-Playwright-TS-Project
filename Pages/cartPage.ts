@@ -28,8 +28,7 @@ class CartPage {
         );
     }
 
-    async validateCart(product: string,quantity: number)
-    {
+    async validateCart(product: string, quantity: number) {
         await this.utilityPage.attachScreenshotToReport("CartPage");
         await expect(this.cartProductName(product)).toBeVisible();
         await this.validateQuantityInCart(quantity);
@@ -62,8 +61,8 @@ class CartPage {
         }
     }
 
-    async cartHeaderLink()
-    {
+    async cartHeaderLink() {
+        await this.page.waitForSelector("//a[text()=' Cart']");
         await this.viewCartHeaderLink.click();
     }
 }

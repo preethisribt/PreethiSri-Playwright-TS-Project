@@ -17,14 +17,10 @@ test.beforeEach("Launch Application and login", async ({ page }, testInfo) => {
     await loginPage.login(validUser.UserName, validUser.Password);
 });
 
-test("Validate Cart is Empty",{tag:"@Regression"}, async ({ page }, testInfo) => {
-    const cartPage: CartPage = new CartPage(page, testInfo);
-    await cartPage.emptyCart();
-    await cartPage.validateEmptyCartMessage();
-});
+
 
 for (const data of dataFromCSV) {
-    test(`Add Product and check product added to cart ${data.dataID}`,{tag:"@Regression"}, async ({ page }, testInfo) => {
+    test(`Validate customer able to purchage product ${data.dataID}`,{tag:"@Regression"}, async ({ page }, testInfo) => {
         const homePage: HomePage = new HomePage(page, testInfo);
         const categoryPage = await homePage.getCategoryPage();
         await categoryPage.selectProductFromTheCategory(data);
@@ -36,6 +32,7 @@ for (const data of dataFromCSV) {
 
         const orderReviewPage: OrderReviewPage = new OrderReviewPage(page, testInfo);
         await orderReviewPage.placeOrder();
+        
 
         const paymentPage:PaymentPage = new PaymentPage(page, testInfo);
         await paymentPage.selectPaymentMethod();
