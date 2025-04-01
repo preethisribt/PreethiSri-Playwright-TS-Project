@@ -4,3 +4,5 @@
 /playwright/.cache/
 /test-screenshots/
 /tests/PractiseTest/
+/test-screenshots/
+/playwright-report/
