@@ -29,6 +29,12 @@ class HomePage {
         await this.searchProductButton.click();
         await expect(this.searchProductResult(product)).toBeVisible();
     }
+
+    async getAndValidateHomePageHeaders(expectedHeaders: string[]) {
+        const headers: string[] = await this.page.locator("#header li a").allInnerTexts();
+        const actualHeaders: string[] = await headers.map(e => e.replace(/[^a-zA-Z// ]/g, "").trim());
+        expect(await actualHeaders).toEqual(expectedHeaders);
+    }
 }
 
 export default HomePage;
