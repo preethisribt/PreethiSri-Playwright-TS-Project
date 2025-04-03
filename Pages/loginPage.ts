@@ -52,10 +52,10 @@ class LoginPage {
         await this.loginButton.click();
     }
 
-    async registerUser(userName: string, emailId: string) {
+    async registerUser(userName: string) {
         await this.loginApplicationLink.click();
-        await this.registerNameTextBox.fill(userName);
-        await this.registeremailIDTextBox.fill(emailId);
+        await this.registerNameTextBox.fill(userName.split("@")[0]);
+        await this.registeremailIDTextBox.fill(userName);
         await this.signupButton.click();
         await this.utilityPage.attachScreenshotToReport("SignupPage");
     }

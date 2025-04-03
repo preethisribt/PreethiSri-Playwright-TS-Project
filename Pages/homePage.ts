@@ -1,4 +1,4 @@
-import CategoryPage from "./CategoryPage";
+import CategoryPage from "./categoryPage";
 import { expect, Page, TestInfo } from "@playwright/test";
 import { BrandPage } from "./BrandPage";
 

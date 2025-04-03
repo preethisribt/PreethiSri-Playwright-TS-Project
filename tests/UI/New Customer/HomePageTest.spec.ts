@@ -8,6 +8,7 @@ test.beforeEach("Launch Application", async ({ page }, testInfo) => {
   await loginPage.launchApplication();
 });
 
+
 test("TC-001 Validate Expected headers Present", async ({ page }, testInfo) => {
   const homePage: HomePage = new HomePage(page, testInfo);
   await homePage.getAndValidateHomePageHeaders(datas.headers);
