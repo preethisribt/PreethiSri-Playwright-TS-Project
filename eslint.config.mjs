@@ -7,5 +7,8 @@ export default [
     { files: ["**/*.{js,mjs,cjs,ts}"] },
     { languageOptions: { globals: globals.browser } },
     pluginJs.configs.recommended,
-    ...tseslint.configs.recommended
+    ...tseslint.configs.recommended,
+    {
+        ignores: ["JS_Files/**/*.js", "playwright-report/"]
+    }
 ];
