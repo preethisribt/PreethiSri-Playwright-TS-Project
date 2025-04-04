@@ -4,8 +4,7 @@
     "main": "index.js",
     "scripts": {
         "prepare": "husky",
-        "lintAllFiles": "npx eslint .",
-        "lint": "npx eslint . --ignore-pattern playwright-report/* --ignore-pattern **/.js",
+        "lint": "npx eslint .",
         "lint:fix": "npx eslint . --fix"
     },
     "keywords": [],
