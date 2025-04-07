@@ -1,5 +1,5 @@
 import test from "playwright/test";
-import {validUsers}  from "../../../test-data/LoginTestData";
+import validUsers  from "../../../test-data/UI data/CredentialsData.json"
 import LoginPage from "../../../Pages/loginPage";
 
 for (const loginData of validUsers) {

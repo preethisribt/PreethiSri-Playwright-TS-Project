@@ -1,6 +1,7 @@
 import { test } from "@playwright/test";
 import LoginPage from "../../../Pages/loginPage";
-import { validUsers, invalidUsers } from "../../../test-data/LoginTestData";
+import validUsers from "../../..//test-data/UI data/CredentialsData.json";
+import invalidUsers from "../../..//test-data/UI data/InvalidCredentialsData.json";
 
 for (const loginData of validUsers) {
     test(`TC-005-${loginData.dataID} Validate Login Feature test for ${loginData.UserName}`,{tag:"@smoke"}, async ({ page }, testInfo) => {
