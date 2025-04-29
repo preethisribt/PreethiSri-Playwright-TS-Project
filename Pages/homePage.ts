@@ -31,13 +31,10 @@ class HomePage {
         await expect(this.searchProductResult(product)).toBeVisible();
     }
 
-    async getHomePageheaders() {
-        const expectedHeaders: string[] = ["Home", "Products", "Cart", "Signup / Login", "Test Cases", "API Testing", "Video Tutorials", "Contact us"];
-        const actualHeaders: Array<string> = await this.page.locator("#header").getByRole("link").allTextContents();
-        const actualHeadersRefined: string[] = actualHeaders.filter(header=> header != "").map(header => header.replace(/[^\w\s/]/g, "").trim());
-        console.log(actualHeadersRefined);
-
-        await expect(actualHeadersRefined).toEqual(expectedHeaders);
+    async getAndValidateHomePageHeaders(expectedHeaders: string[]) {
+        const headers: string[] = await this.page.locator("#header li a").allInnerTexts();
+        const actualHeaders: string[] = await headers.map(e => e.replace(/[^a-zA-Z// ]/g, "").trim());
+        expect(await actualHeaders).toEqual(expectedHeaders);
     }
 }
 

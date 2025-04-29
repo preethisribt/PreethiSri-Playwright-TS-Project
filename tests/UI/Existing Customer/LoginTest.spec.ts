@@ -1,9 +1,10 @@
 import { test } from "@playwright/test";
 import LoginPage from "../../../Pages/loginPage";
-import { validUsers, invalidUsers } from "../../../test-data/LoginTestData";
+import validUsers from "../../..//test-data/UI data/CredentialsData.json";
+import invalidUsers from "../../..//test-data/UI data/InvalidCredentialsData.json";
 
 for (const loginData of validUsers) {
-    test(`Validate Login Feature test for ${loginData.UserName}`,{tag:"@smoke"}, async ({ page }, testInfo) => {
+    test(`TC-005-${loginData.dataID} Validate Login Feature test for ${loginData.UserName}`,{tag:"@smoke"}, async ({ page }, testInfo) => {
         const loginPage = new LoginPage(page, testInfo);
         await loginPage.launchApplication();
         await loginPage.login(loginData.UserName, loginData.Password);
@@ -12,7 +13,7 @@ for (const loginData of validUsers) {
 }
 
 for (const loginData of invalidUsers) {
-    test(`Validate Login with invalid credentials  ${loginData.UserName}`,{tag:"@Regression"}, async ({ page }, testInfo) => {
+    test(`TC-006-${loginData.dataID} Validate Login with invalid credentials  ${loginData.UserName}`,{tag:"@Regression"}, async ({ page }, testInfo) => {
         const loginPage = new LoginPage(page, testInfo);
         await loginPage.launchApplication();
         await loginPage.login(loginData.UserName, loginData.Password);
@@ -21,20 +22,11 @@ for (const loginData of invalidUsers) {
 }
 
 for (const loginData of validUsers) {
-    test("Validate Logout Feature", {tag:"@Regression"},async ({ page }, testInfo) => {
+    test(`TC-007-${loginData.dataID} Validate Logout Feature`, {tag:"@Regression"},async ({ page }, testInfo) => {
         const loginPage = new LoginPage(page, testInfo);
         await loginPage.launchApplication();
         await loginPage.login(loginData.UserName, loginData.Password);
         await loginPage.validateLoginIsSuccessful();
         await loginPage.logoutAndValidate();
-    });
-}
-
-for (const loginData of validUsers) {
-    test("Register user with existing emailID",{tag:"@Regression"},async ({ page }, testInfo) => {
-        const loginPage = new LoginPage(page, testInfo);
-        await loginPage.launchApplication();
-        await loginPage.registerUser(loginData.Name, loginData.UserName);
-        await loginPage.validateAlreadyRegistredUser();
     });
 }

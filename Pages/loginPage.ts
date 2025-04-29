@@ -1,5 +1,5 @@
 import { expect, Page, TestInfo } from "@playwright/test";
-import { DataUtility } from "../test-data/DataUtility";
+import DataUtility from "../test-data/DataUtility";
 import { PlaywrightBlocker } from "@cliqz/adblocker-playwright";
 import { UtilityPage } from "../Utility/UtilityPage";
 
@@ -52,10 +52,10 @@ class LoginPage {
         await this.loginButton.click();
     }
 
-    async registerUser(userName: string, emailId: string) {
+    async registerUser(userName: string) {
         await this.loginApplicationLink.click();
-        await this.registerNameTextBox.fill(userName);
-        await this.registeremailIDTextBox.fill(emailId);
+        await this.registerNameTextBox.fill(userName.split("@")[0]);
+        await this.registeremailIDTextBox.fill(userName);
         await this.signupButton.click();
         await this.utilityPage.attachScreenshotToReport("SignupPage");
     }
