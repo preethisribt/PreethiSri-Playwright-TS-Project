@@ -25,12 +25,7 @@ test("Fetch Auth token", async () => {
 });
 
 test("Get All booking IDs", async () => {
-    const response = await baseURLContext.get(
-        "https://restful-booker.herokuapp.com/booking",
-        {
-            headers: { "Content-Type": "application/json" }
-        }
-    );
+    const response = await baseURLContext.get("booking");
     const responseJSON = await response.json();
     // Promise.all(responseJSON.map(e => console.log(e.bookingid)));
     console.log(await responseJSON);

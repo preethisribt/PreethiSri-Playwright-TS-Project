@@ -26,7 +26,7 @@ export interface ProductDetail {
     condition: string;
 }
 
-export class DataUtility {
+export default class DataUtility {
     public static readonly url = process.env.URL as string;
 
     private static date: Date = new Date();
@@ -55,4 +55,9 @@ export class DataUtility {
             checkout: checkoutDate
         }
     });
+
+    updatePayload = (obj1, obj2) =>{
+    return { ...obj1, ...obj2 };
 }
+}
+
