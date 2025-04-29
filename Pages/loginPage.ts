@@ -1,5 +1,5 @@
 import { expect, Page, TestInfo } from "@playwright/test";
-import { DataUtility } from "../test-data/DataUtility";
+import DataUtility from "../test-data/DataUtility";
 import { PlaywrightBlocker } from "@cliqz/adblocker-playwright";
 import { UtilityPage } from "../Utility/UtilityPage";
 

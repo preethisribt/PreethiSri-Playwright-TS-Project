@@ -1,5 +1,5 @@
 import { Page, TestInfo } from "@playwright/test";
-import { DataUtility } from "../test-data/DataUtility";
+import  DataUtility  from "../test-data/DataUtility";
 
 export class UtilityPage {
     constructor(
