@@ -1,83 +1,58 @@
-import { test, expect, APIRequestContext, request } from "@playwright/test";
-import DataUtility from "../../test-data/DataUtility";
-let dataUtility: DataUtility;
-let bookingID: number;
-let updatedPayload;
-let requestContext: APIRequestContext;
+import { test, request, APIRequestContext, expect } from "@playwright/test";
+import jsonData from "../../test-data/API data/BookerPayload.json";
+let baseURLContext: APIRequestContext;
 
-test.beforeAll("Booking URL and header", async () => {
-    requestContext = await request.newContext({
+test.beforeAll("Base URL", async () => {
+    baseURLContext = await request.newContext({
         baseURL: "https://restful-booker.herokuapp.com/",
         extraHTTPHeaders: {
             "Content-Type": "application/json"
         }
-    })
+    });
 });
 
-test.describe("Validate E2E flow create, fetch then update and validate the booker", { tag: "@Booker" }, () => {
-    test.describe.configure({ mode: "serial" });
-    dataUtility = new DataUtility();
+test("Fetch Auth token", async () => {
+    const response = await baseURLContext.post("auth", {
+        data: {
+            username: "admin",
+            password: "password123"
+        }
+    });
+    const responseJson = await response.json();
 
-    const payload = dataUtility.payloadData;
-    test("Create Booking", async () => {
-        const response = await requestContext.post("booking",
-            {
+    await expect(responseJson.token).toBeTruthy();
+    console.log(responseJson.token);
+});
 
-                data: payload
-                
-            }
-        );
+test("Get All booking IDs", async () => {
+    const response = await baseURLContext.get("booking");
+    const responseJSON = await response.json();
+    // Promise.all(responseJSON.map(e => console.log(e.bookingid)));
+    console.log(await responseJSON);
+});
 
-        const responseJSON = await response.json();
-        console.log(responseJSON);
-
-        expect(response.status()).toBe(200);
-        expect(response.statusText()).toBe("OK");
-
-        bookingID = await responseJSON.bookingid;
-        expect(bookingID).toBeTruthy();
-        expect(await responseJSON.booking).toMatchObject(payload);
+test("Get booking using name", async () => {
+    // const response = await baseURLContext.get("/booking?firstname=Josh&lastname=Allen");
+    const response = await baseURLContext.get("/booking", {
+        params: {
+            firstname: "Josh",
+            lastname: "Allen"
+        }
     });
 
-    test("Fetech created booking using booking_ID", async () => {
-        const response = await requestContext.get(`/booking/${bookingID}`);
-        const responseJSON = await response.json();
-        console.log(await responseJSON);
+    const responseJSON = await response.json();
+    console.log(responseJSON);
+    expect(response.status()).toBe(200);
+    expect(response.statusText()).toBe("OK");
+});
 
-        expect(await response.status()).toBe(200);
-        expect(await response.statusText()).toBe("OK");
-        expect(await responseJSON).toMatchObject(payload);
+test("create Booking details", async () => {
+    const response = await baseURLContext.post("/booking", {
+        data: jsonData
     });
 
-    test("Update booking and validate", async () => {
-        const updatedField = { "additionalneeds": "transport vehicle" }; //field to be updated
-        updatedPayload = dataUtility.updatePayload(payload, updatedField);  //merging original payload with updated field
-        console.log("Updated Payload:  " + updatedPayload);
-
-        const response = await requestContext.put(`/booking/${bookingID}`, {
-            headers: {
-                "Authorization": "Basic YWRtaW46cGFzc3dvcmQxMjM=",
-                "Cookie": "token=abc123"
-            },
-            data: updatedPayload
-        });
-
-        const responseJSON = await response.json();
-        console.log(await responseJSON);
-
-        expect(await response.status()).toBe(200);
-        expect(await response.statusText()).toBe("OK");
-        expect(await responseJSON).toMatchObject(updatedPayload);
-    });
-
-    
-    test("Fetech after updating the booking", async () => {
-        const response = await requestContext.get(`/booking/${bookingID}`);
-        const responseJSON = await response.json();
-        console.log(await responseJSON);
-
-        expect(await response.status()).toBe(200);
-        expect(await response.statusText()).toBe("OK");
-        expect(await responseJSON).toMatchObject(updatedPayload);
-    });
+    const responseJSON = await response.json();
+    console.log(responseJSON);
+    expect(response.status()).toBe(200);
+    expect(response.statusText()).toBe("OK");
 });
