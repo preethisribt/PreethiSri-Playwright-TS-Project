@@ -9,6 +9,6 @@ export default [
     pluginJs.configs.recommended,
     ...tseslint.configs.recommended,
     {
-        ignores: ["JS_Files/**/*.js", "playwright-report/"]
+        ignores: ["JS_Files/**/*.js", "playwright-report/**"]
     }
 ];
